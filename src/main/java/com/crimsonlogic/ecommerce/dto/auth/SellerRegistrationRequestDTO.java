@@ -1,11 +1,9 @@
 package com.crimsonlogic.ecommerce.dto.auth;
 
-import com.crimsonlogic.ecommerce.dto.address.ShopAddressDTO;
+import com.crimsonlogic.ecommerce.dto.address.AddressRequestDTO;
+
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class SellerRegistrationRequestDTO {
 
@@ -31,8 +29,13 @@ public class SellerRegistrationRequestDTO {
     @Size(min = 3, max = 100, message = "Shop name must be between 3 and 100 characters.")
     private String shopName;
 
+    // Inside SellerRegistrationRequestDTO.java
+
+    @NotNull(message = "Address is required.")
     @Valid
-    private ShopAddressDTO shopAddress;
+    private AddressRequestDTO address; // Renamed from shopAddress and reused the generic DTO
+
+
 
     // Getters and Setters
     public String getName() { return name; }
@@ -45,6 +48,6 @@ public class SellerRegistrationRequestDTO {
     public void setPassword(String password) { this.password = password; }
     public String getShopName() { return shopName; }
     public void setShopName(String shopName) { this.shopName = shopName; }
-    public ShopAddressDTO getShopAddress() { return shopAddress; }
-    public void setShopAddress(ShopAddressDTO shopAddress) { this.shopAddress = shopAddress; }
+    public AddressRequestDTO getAddress() { return address; }
+    public void setAddress(AddressRequestDTO address) { this.address = address; }
 }

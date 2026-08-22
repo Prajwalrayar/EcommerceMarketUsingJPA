@@ -1,11 +1,13 @@
 package com.crimsonlogic.ecommerce.service;
 
 import com.crimsonlogic.ecommerce.dto.address.AddressDTO;
-import com.crimsonlogic.ecommerce.dto.address.ShopAddressDTO;
+import com.crimsonlogic.ecommerce.dto.address.AddressRequestDTO;
 import com.crimsonlogic.ecommerce.dto.user.CustomerProfileUpdateRequestDTO;
 import com.crimsonlogic.ecommerce.dto.user.SellerProfileUpdateRequestDTO;
 import com.crimsonlogic.ecommerce.dto.user.UpdatePhoneRequestDTO;
 import com.crimsonlogic.ecommerce.dto.user.UserResponseDTO;
+
+import javax.validation.Valid;
 
 public interface UserService {
     // Admin Operations
@@ -21,6 +23,6 @@ public interface UserService {
     // Seller Operations
     UserResponseDTO getSellerProfile(String sellerId);
     UserResponseDTO updateSellerProfile(String sellerId, SellerProfileUpdateRequestDTO request);
-    UserResponseDTO addSellerAddress(String sellerId, ShopAddressDTO request);
+    UserResponseDTO addSellerAddress(String sellerId, @Valid AddressRequestDTO request);
     void removeSellerAddress(String sellerId, String addressId);
 }

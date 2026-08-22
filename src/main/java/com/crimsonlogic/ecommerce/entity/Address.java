@@ -2,11 +2,7 @@ package com.crimsonlogic.ecommerce.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -79,19 +75,9 @@ public class Address {
     private String zipCode;
 
 
-    // ==========================================================
-    // SELLER RELATIONSHIP
-    //
-    // MANY ADDRESSES -> ONE SELLER
-    //
-    // seller_id is stored in addresses table.
-    // ==========================================================
-
-    @ManyToOne
-    @JoinColumn(
-            name = "seller_id"
-    )
-    private Seller seller;
+    // ---> REMOVED THE @ManyToOne SELLER RELATIONSHIP <---
+    // The relationship is now fully managed by the @ManyToMany
+    // JoinTables in your Customer.java and Seller.java entities!
 
 
     // ==========================================================
@@ -114,7 +100,6 @@ public class Address {
         this.id = id;
     }
 
-
     public String getHouseNumber() {
         return houseNumber;
     }
@@ -122,7 +107,6 @@ public class Address {
     public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
-
 
     public String getStreet() {
         return street;
@@ -132,7 +116,6 @@ public class Address {
         this.street = street;
     }
 
-
     public String getCity() {
         return city;
     }
@@ -140,7 +123,6 @@ public class Address {
     public void setCity(String city) {
         this.city = city;
     }
-
 
     public String getState() {
         return state;
@@ -150,7 +132,6 @@ public class Address {
         this.state = state;
     }
 
-
     public String getCountry() {
         return country;
     }
@@ -159,21 +140,11 @@ public class Address {
         this.country = country;
     }
 
-
     public String getZipCode() {
         return zipCode;
     }
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
-    }
-
-
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
     }
 }

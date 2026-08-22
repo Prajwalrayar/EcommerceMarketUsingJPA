@@ -13,6 +13,9 @@ import com.crimsonlogic.ecommerce.repository.InventoryRepository;
 import com.crimsonlogic.ecommerce.repository.ProductRepository;
 import com.crimsonlogic.ecommerce.repository.SellerRepository;
 import com.crimsonlogic.ecommerce.util.IdGenerator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -137,5 +140,27 @@ public class ProductServiceImpl {
         productRepository.delete(product);
 
         return "Product deleted successfully.";
+    }
+
+    // --- NEW: Get All Products with Pagination ---
+    public Page<ProductResponseDTO> getAllProductsPaginated(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, org.springframework.data.domain.Sort.by(sortBy));
+        return productRepository.findAll(pageable).map(this::mapToDTO);
+    }
+
+    // --- NEW: Search Products by Keyword (Name or Brand) ---
+    public List<ProductResponseDTO> searchProducts(String keyword) {
+        return productRepository.findByNameContainingIgnoreCaseOrBrandContainingIgnoreCase(keyword, keyword, org.springframework.data.domain.Pageable.unpaged())
+                .stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+
+    // --- NEW: Advanced Search and Filter with Pagination ---
+    public org.springframework.data.domain.Page<ProductResponseDTO> filterProducts(
+            String keyword, String categoryName, Double minPrice, Double maxPrice, int page, int size, String sortBy) {
+
+        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size, org.springframework.data.domain.Sort.by(sortBy));
+
+        return productRepository.searchAndFilterProducts(keyword, categoryName, minPrice, maxPrice, pageable)
+                .map(this::mapToDTO);
     }
 }

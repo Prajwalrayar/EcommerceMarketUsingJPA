@@ -1,6 +1,7 @@
 package com.crimsonlogic.ecommerce.service.impl;
 
 import com.crimsonlogic.ecommerce.dto.cart.CartRequestDTO;
+import com.crimsonlogic.ecommerce.dto.cart.CartResponseDTO;
 import com.crimsonlogic.ecommerce.entity.Cart;
 import com.crimsonlogic.ecommerce.entity.Customer;
 import com.crimsonlogic.ecommerce.entity.Inventory;
@@ -13,6 +14,9 @@ import com.crimsonlogic.ecommerce.repository.ProductRepository;
 import com.crimsonlogic.ecommerce.util.IdGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -31,7 +35,8 @@ public class CartServiceImpl {
         this.inventoryRepository = inventoryRepository;
     }
 
-    public String addToCart(String customerId, CartRequestDTO request) {
+    // Your updated method (Parameter order adjusted slightly to match the Controller)
+    public String addToCart(CartRequestDTO request, String customerId) {
         Product product = productRepository.findByName(request.getProductName())
                 .orElseThrow(() -> new ValidationException("Product '" +
                         request.getProductName() + "' not found."));
@@ -62,5 +67,36 @@ public class CartServiceImpl {
 
         cartRepository.save(cart);
         return "Product added to cart successfully.";
+    }
+
+    // Restored View Cart method
+    public List<CartResponseDTO> viewCart(String customerId) {
+        List<Cart> cartItems = cartRepository.findByCustomerId(customerId);
+        return cartItems.stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+
+    // Restored Remove from Cart method
+    public String removeFromCart(String cartId, String customerId) {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new ValidationException("Cart item not found."));
+
+        if (!cart.getCustomer().getId().equals(customerId)) {
+            throw new ValidationException("You can only remove items from your own cart.");
+        }
+
+        cartRepository.delete(cart);
+        return "Item removed from cart.";
+    }
+
+    // Restored DTO Mapper
+    private CartResponseDTO mapToDTO(Cart cart) {
+        CartResponseDTO dto = new CartResponseDTO();
+        dto.setCartId(cart.getId());
+        dto.setProductId(cart.getProduct().getId());
+        dto.setProductName(cart.getProduct().getName());
+        dto.setQuantity(cart.getQuantity());
+        dto.setUnitPrice(cart.getProduct().getPrice());
+        dto.setTotalPrice(cart.getTotalPrice());
+        return dto;
     }
 }

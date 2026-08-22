@@ -1,13 +1,16 @@
 package com.crimsonlogic.ecommerce.controller;
 
 import com.crimsonlogic.ecommerce.dto.address.AddressDTO;
-import com.crimsonlogic.ecommerce.dto.address.ShopAddressDTO;
+import com.crimsonlogic.ecommerce.dto.address.AddressRequestDTO;
 import com.crimsonlogic.ecommerce.dto.user.CustomerProfileUpdateRequestDTO;
 import com.crimsonlogic.ecommerce.dto.user.SellerProfileUpdateRequestDTO;
 import com.crimsonlogic.ecommerce.dto.user.UpdatePhoneRequestDTO;
 import com.crimsonlogic.ecommerce.dto.user.UserResponseDTO;
+import com.crimsonlogic.ecommerce.handler.ApiResponse;
 import com.crimsonlogic.ecommerce.service.UserService;
+
 import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,75 +27,183 @@ public class UserProfileController {
     // ==========================================================
     // ADMIN ENDPOINTS
     // ==========================================================
+
     @GetMapping("/admin/profile")
-    public ResponseEntity<UserResponseDTO> getAdminProfile(@RequestAttribute("userId") String adminId) {
-        return ResponseEntity.ok(userService.getAdminProfile(adminId));
+    public ResponseEntity<ApiResponse<UserResponseDTO>> getAdminProfile(
+            @RequestAttribute("userId") String adminId) {
+
+        UserResponseDTO response =
+                userService.getAdminProfile(adminId);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Admin profile retrieved successfully",
+                        response
+                )
+        );
     }
 
     @PutMapping("/admin/profile/phone")
-    public ResponseEntity<UserResponseDTO> updateAdminPhone(
+    public ResponseEntity<ApiResponse<UserResponseDTO>> updateAdminPhone(
             @RequestAttribute("userId") String adminId,
             @Valid @RequestBody UpdatePhoneRequestDTO request) {
-        return ResponseEntity.ok(userService.updateAdminPhone(adminId, request));
+
+        UserResponseDTO response =
+                userService.updateAdminPhone(adminId, request);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Admin phone number updated successfully",
+                        response
+                )
+        );
     }
 
     // ==========================================================
     // CUSTOMER ENDPOINTS
     // ==========================================================
+
     @GetMapping("/customer/profile")
-    public ResponseEntity<UserResponseDTO> getCustomerProfile(@RequestAttribute("userId") String customerId) {
-        return ResponseEntity.ok(userService.getCustomerProfile(customerId));
+    public ResponseEntity<ApiResponse<UserResponseDTO>> getCustomerProfile(
+            @RequestAttribute("userId") String customerId) {
+
+        UserResponseDTO response =
+                userService.getCustomerProfile(customerId);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Customer profile retrieved successfully",
+                        response
+                )
+        );
     }
 
     @PutMapping("/customer/profile")
-    public ResponseEntity<UserResponseDTO> updateCustomerProfile(
+    public ResponseEntity<ApiResponse<UserResponseDTO>> updateCustomerProfile(
             @RequestAttribute("userId") String customerId,
             @Valid @RequestBody CustomerProfileUpdateRequestDTO request) {
-        return ResponseEntity.ok(userService.updateCustomerProfile(customerId, request));
+
+        UserResponseDTO response =
+                userService.updateCustomerProfile(
+                        customerId,
+                        request
+                );
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Customer profile updated successfully",
+                        response
+                )
+        );
     }
 
     @PostMapping("/customer/address")
-    public ResponseEntity<UserResponseDTO> addCustomerAddress(
+    public ResponseEntity<ApiResponse<UserResponseDTO>> addCustomerAddress(
             @RequestAttribute("userId") String customerId,
             @Valid @RequestBody AddressDTO request) {
-        return ResponseEntity.ok(userService.addCustomerAddress(customerId, request));
+
+        UserResponseDTO response =
+                userService.addCustomerAddress(
+                        customerId,
+                        request
+                );
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Customer address added successfully",
+                        response
+                )
+        );
     }
 
     @DeleteMapping("/customer/address/{addressId}")
-    public ResponseEntity<String> removeCustomerAddress(
+    public ResponseEntity<ApiResponse<Void>> removeCustomerAddress(
             @RequestAttribute("userId") String customerId,
             @PathVariable String addressId) {
-        userService.removeCustomerAddress(customerId, addressId);
-        return ResponseEntity.ok("Address removed successfully.");
+
+        userService.removeCustomerAddress(
+                customerId,
+                addressId
+        );
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Address removed successfully."
+                )
+        );
     }
 
     // ==========================================================
     // SELLER ENDPOINTS
     // ==========================================================
+
     @GetMapping("/seller/profile")
-    public ResponseEntity<UserResponseDTO> getSellerProfile(@RequestAttribute("userId") String sellerId) {
-        return ResponseEntity.ok(userService.getSellerProfile(sellerId));
+    public ResponseEntity<ApiResponse<UserResponseDTO>> getSellerProfile(
+            @RequestAttribute("userId") String sellerId) {
+
+        UserResponseDTO response =
+                userService.getSellerProfile(sellerId);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Seller profile retrieved successfully",
+                        response
+                )
+        );
     }
 
     @PutMapping("/seller/profile")
-    public ResponseEntity<UserResponseDTO> updateSellerProfile(
+    public ResponseEntity<ApiResponse<UserResponseDTO>> updateSellerProfile(
             @RequestAttribute("userId") String sellerId,
             @Valid @RequestBody SellerProfileUpdateRequestDTO request) {
-        return ResponseEntity.ok(userService.updateSellerProfile(sellerId, request));
+
+        UserResponseDTO response =
+                userService.updateSellerProfile(
+                        sellerId,
+                        request
+                );
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Seller profile updated successfully",
+                        response
+                )
+        );
     }
 
     @PostMapping("/seller/address")
-    public ResponseEntity<UserResponseDTO> addSellerAddress(
+    public ResponseEntity<ApiResponse<UserResponseDTO>> addSellerAddress(
             @RequestAttribute("userId") String sellerId,
-            @Valid @RequestBody ShopAddressDTO request) {
-        return ResponseEntity.ok(userService.addSellerAddress(sellerId, request));
+            @Valid @RequestBody AddressRequestDTO request) {
+
+        UserResponseDTO response =
+                userService.addSellerAddress(
+                        sellerId,
+                        request
+                );
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Seller address added successfully",
+                        response
+                )
+        );
     }
 
     @DeleteMapping("/seller/address/{addressId}")
-    public ResponseEntity<String> removeSellerAddress(
+    public ResponseEntity<ApiResponse<Void>> removeSellerAddress(
             @RequestAttribute("userId") String sellerId,
             @PathVariable String addressId) {
-        userService.removeSellerAddress(sellerId, addressId);
-        return ResponseEntity.ok("Address removed successfully.");
+
+        userService.removeSellerAddress(
+                sellerId,
+                addressId
+        );
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Address removed successfully."
+                )
+        );
     }
 }

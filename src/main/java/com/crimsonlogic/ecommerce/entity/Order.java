@@ -39,9 +39,17 @@ public class Order {
     @Column(name = "tracking_number", length = 20)
     private String trackingNumber;
 
+    // Add this inside com.crimsonlogic.ecommerce.entity.Order
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shipping_address_id", nullable = false)
+    private Address shippingAddress;
+
+    // Generate Getter and Setter for shippingAddress
     public Order() {}
 
     // Generate Standard Getters and Setters
+
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
     public Customer getCustomer() { return customer; }
@@ -60,4 +68,6 @@ public class Order {
     public void setDeliveredDate(LocalDateTime deliveredDate) { this.deliveredDate = deliveredDate; }
     public String getTrackingNumber() { return trackingNumber; }
     public void setTrackingNumber(String trackingNumber) { this.trackingNumber = trackingNumber; }
+    public Address getShippingAddress() { return shippingAddress; }
+    public void setShippingAddress(Address shippingAddress) { this.shippingAddress = shippingAddress; }
 }

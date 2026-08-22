@@ -11,6 +11,7 @@ import com.crimsonlogic.ecommerce.entity.Seller;
 import com.crimsonlogic.ecommerce.entity.abstraction.User;
 import com.crimsonlogic.ecommerce.exception.DuplicateUserException;
 import com.crimsonlogic.ecommerce.exception.InvalidCredentialsException;
+import com.crimsonlogic.ecommerce.exception.ValidationException;
 import com.crimsonlogic.ecommerce.repository.AddressRepository;
 import com.crimsonlogic.ecommerce.repository.AdminRepository;
 import com.crimsonlogic.ecommerce.repository.CustomerRepository;
@@ -85,7 +86,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         customer.setPhone(request.getPhone().trim());
         customer.setPassword(PasswordUtil.encryptPassword(request.getPassword()));
 
+        // Customer address is NOT mandatory during registration, but if provided, it MUST have a house number.
         if (request.getAddress() != null) {
+            if (request.getAddress().getHouseNumber() == null || request.getAddress().getHouseNumber().trim().isEmpty()) {
+                throw new ValidationException("House number is compulsory for customers.");
+            }
+
             Address address = new Address();
             address.setId(generateUniqueId("ADR", addressRepository));
             address.setHouseNumber(request.getAddress().getHouseNumber());
@@ -116,17 +122,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         seller.setPassword(PasswordUtil.encryptPassword(request.getPassword()));
         seller.setShopName(request.getShopName().trim());
 
-        if (request.getShopAddress() != null) {
+        // Seller address IS mandatory (enforced via @NotNull in DTO), and we inject "N/A" for house number
+        if (request.getAddress() != null) {
             Address address = new Address();
             address.setId(generateUniqueId("ADR", addressRepository));
-            // Seller addresses do not have a houseNumber in the DTO
-            address.setStreet(request.getShopAddress().getStreet());
-            address.setCity(request.getShopAddress().getCity());
-            address.setState(request.getShopAddress().getState());
-            address.setCountry(request.getShopAddress().getCountry());
-            address.setZipCode(request.getShopAddress().getZipCode());
+            address.setHouseNumber("N/A"); // Database requires it, but sellers don't provide it
+            address.setStreet(request.getAddress().getStreet());
+            address.setCity(request.getAddress().getCity());
+            address.setState(request.getAddress().getState());
+            address.setCountry(request.getAddress().getCountry());
+            address.setZipCode(request.getAddress().getZipCode());
 
-            // Save the unified address, then link it
             addressRepository.save(address);
             seller.addAddress(address);
         }

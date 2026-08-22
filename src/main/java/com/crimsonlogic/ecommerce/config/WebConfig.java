@@ -13,8 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages = {
         "com.crimsonlogic.ecommerce.component",
         "com.crimsonlogic.ecommerce.controller",
-        "com.crimsonlogic.ecommerce.handler",     // Ensures your GlobalExceptionHandler works
-        "com.crimsonlogic.ecommerce.interceptor"  // Ensures Spring finds your Interceptor
+        "com.crimsonlogic.ecommerce.handler",
+        "com.crimsonlogic.ecommerce.interceptor"
 })
 public class WebConfig implements WebMvcConfigurer {
 
@@ -24,16 +24,29 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationInterceptor)
-                // Secure all these API paths:
+                // Secure sensitive endpoints:
                 .addPathPatterns(
                         "/api/customer/**",
                         "/api/admin/**",
-                        "/api/products/**",
-                        "/api/inventory/**"
+                        "/api/inventory/**",
+                        "/api/orders/**",
+                        "/api/addresses/**",
+                        "/api/wishlist/**",
+                        "/api/reviews/add",
+                        "/api/reviews/seller/**",
+                        "/api/categories/add",
+                        "/api/products" // Secures POST/PUT (Adding/Editing products)
                 )
-                // ONLY exclude the auth paths!
+
+                // Public endpoints open to everyone (Browsing, Searching, Reviews):
                 .excludePathPatterns(
-                        "/api/auth/**"
+                        "/api/auth/**",
+                        "/api/categories/all",
+                        "/api/products/paged",
+                        "/api/products/filter",
+                        "/api/products/search",
+                        "/api/products/category/**",
+                        "/api/reviews/product/**"
                 );
     }
 }

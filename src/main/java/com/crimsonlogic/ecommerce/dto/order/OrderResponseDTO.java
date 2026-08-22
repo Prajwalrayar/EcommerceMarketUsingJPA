@@ -8,7 +8,7 @@ public class OrderResponseDTO {
     private Integer quantity;
     private Double totalPrice;
     private String status;
-    private LocalDateTime orderDate;
+    private String orderDate;
 
     public String getOrderId() { return orderId; }
     public void setOrderId(String orderId) { this.orderId = orderId; }
@@ -20,6 +20,6 @@ public class OrderResponseDTO {
     public void setTotalPrice(Double totalPrice) { this.totalPrice = totalPrice; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-    public LocalDateTime getOrderDate() { return orderDate; }
-    public void setOrderDate(LocalDateTime orderDate) { this.orderDate = orderDate; }
+    public String getOrderDate() { return orderDate; }
+    public void setOrderDate(String orderDate) { this.orderDate = orderDate; }
 }
