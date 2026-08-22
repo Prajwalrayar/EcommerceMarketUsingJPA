@@ -1,8 +1,8 @@
 package com.crimsonlogic.ecommerce.service.impl;
 
 import com.crimsonlogic.ecommerce.dto.address.AddressDTO;
+import com.crimsonlogic.ecommerce.dto.address.AddressRequestDTO;
 import com.crimsonlogic.ecommerce.dto.address.AddressResponseDTO;
-import com.crimsonlogic.ecommerce.dto.address.ShopAddressDTO;
 import com.crimsonlogic.ecommerce.dto.user.*;
 import com.crimsonlogic.ecommerce.entity.Address;
 import com.crimsonlogic.ecommerce.entity.Admin;
@@ -19,6 +19,7 @@ import com.crimsonlogic.ecommerce.util.IdGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -140,7 +141,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO addSellerAddress(String sellerId, ShopAddressDTO request) {
+    public UserResponseDTO addSellerAddress(String sellerId, @Valid AddressRequestDTO request) {
         Seller seller = sellerRepository.findById(sellerId)
                 .orElseThrow(() -> new ValidationException("Seller not found."));
 

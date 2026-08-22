@@ -1,7 +1,7 @@
 package com.crimsonlogic.ecommerce.dto.address;
 
 public class AddressResponseDTO {
-    private String id;
+    private String addressId;
     private String houseNumber;
     private String street;
     private String city;
@@ -9,9 +9,9 @@ public class AddressResponseDTO {
     private String country;
     private String zipCode;
 
-    // Standard Getters and Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    // Getters and Setters
+    public String getAddressId() { return addressId; }
+    public void setAddressId(String addressId) { this.addressId = addressId; }
     public String getHouseNumber() { return houseNumber; }
     public void setHouseNumber(String houseNumber) { this.houseNumber = houseNumber; }
     public String getStreet() { return street; }

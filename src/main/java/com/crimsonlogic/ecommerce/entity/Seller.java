@@ -37,7 +37,7 @@ public class Seller extends User {
             joinColumns = @JoinColumn(name = "seller_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id")
     )
-    private Set<Address> addresses = new HashSet<>(); // CHANGED: ShopAddress to Address
+    private Set<Address> addresses = new HashSet<>();
 
 
     // ==========================================================

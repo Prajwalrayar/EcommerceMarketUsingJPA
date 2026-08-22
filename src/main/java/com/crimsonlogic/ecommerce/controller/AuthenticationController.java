@@ -4,9 +4,12 @@ import com.crimsonlogic.ecommerce.dto.auth.CustomerRegistrationRequestDTO;
 import com.crimsonlogic.ecommerce.dto.auth.LoginRequestDTO;
 import com.crimsonlogic.ecommerce.dto.auth.LoginResponseDTO;
 import com.crimsonlogic.ecommerce.dto.auth.SellerRegistrationRequestDTO;
+import com.crimsonlogic.ecommerce.handler.ApiResponse;
 import com.crimsonlogic.ecommerce.service.AuthenticationService;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,50 +25,103 @@ public class AuthenticationController {
     }
 
     @PostMapping("/customer/register")
-    public ResponseEntity<LoginResponseDTO> registerCustomer(
+    public ResponseEntity<ApiResponse<LoginResponseDTO>> registerCustomer(
             @Valid @RequestBody CustomerRegistrationRequestDTO request) {
+
+        LoginResponseDTO response =
+                authenticationService.registerCustomer(request);
+
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(authenticationService.registerCustomer(request));
+                .body(ApiResponse.success(
+                        "Customer registered successfully",
+                        response
+                ));
     }
 
     @PostMapping("/seller/register")
-    public ResponseEntity<LoginResponseDTO> registerSeller(
+    public ResponseEntity<ApiResponse<LoginResponseDTO>> registerSeller(
             @Valid @RequestBody SellerRegistrationRequestDTO request) {
+
+        LoginResponseDTO response =
+                authenticationService.registerSeller(request);
+
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(authenticationService.registerSeller(request));
+                .body(ApiResponse.success(
+                        "Seller registered successfully",
+                        response
+                ));
     }
 
     @PostMapping("/customer/login")
-    public ResponseEntity<LoginResponseDTO> loginCustomer(
-            @Valid @RequestBody LoginRequestDTO request, HttpSession session) {
-        LoginResponseDTO response = authenticationService.loginCustomer(request);
+    public ResponseEntity<ApiResponse<LoginResponseDTO>> loginCustomer(
+            @Valid @RequestBody LoginRequestDTO request,
+            HttpSession session) {
+
+        LoginResponseDTO response =
+                authenticationService.loginCustomer(request);
+
         setupSession(session, response);
-        return ResponseEntity.ok(response);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Customer login successful",
+                        response
+                )
+        );
     }
 
     @PostMapping("/seller/login")
-    public ResponseEntity<LoginResponseDTO> loginSeller(
-            @Valid @RequestBody LoginRequestDTO request, HttpSession session) {
-        LoginResponseDTO response = authenticationService.loginSeller(request);
+    public ResponseEntity<ApiResponse<LoginResponseDTO>> loginSeller(
+            @Valid @RequestBody LoginRequestDTO request,
+            HttpSession session) {
+
+        LoginResponseDTO response =
+                authenticationService.loginSeller(request);
+
         setupSession(session, response);
-        return ResponseEntity.ok(response);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Seller login successful",
+                        response
+                )
+        );
     }
 
     @PostMapping("/admin/login")
-    public ResponseEntity<LoginResponseDTO> loginAdmin(
-            @Valid @RequestBody LoginRequestDTO request, HttpSession session) {
-        LoginResponseDTO response = authenticationService.loginAdmin(request);
+    public ResponseEntity<ApiResponse<LoginResponseDTO>> loginAdmin(
+            @Valid @RequestBody LoginRequestDTO request,
+            HttpSession session) {
+
+        LoginResponseDTO response =
+                authenticationService.loginAdmin(request);
+
         setupSession(session, response);
-        return ResponseEntity.ok(response);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Admin login successful",
+                        response
+                )
+        );
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpSession session) {
+    public ResponseEntity<ApiResponse<Void>> logout(HttpSession session) {
+
         session.invalidate();
-        return ResponseEntity.ok("Logged out successfully.");
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Logged out successfully"
+                )
+        );
     }
 
-    private void setupSession(HttpSession session, LoginResponseDTO response) {
+    private void setupSession(
+            HttpSession session,
+            LoginResponseDTO response) {
+
         session.setAttribute("userId", response.getId());
         session.setAttribute("role", response.getRole());
     }
