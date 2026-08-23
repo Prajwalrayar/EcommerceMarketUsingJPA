@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/customer/checkout")
+@RequestMapping("/api/v1/customer/checkout")
 public class CheckoutController {
 
     private final CheckoutServiceImpl checkoutService;
