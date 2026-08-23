@@ -204,6 +204,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <version>9.0.98</version>
+        </dependency>
+
     </dependencies>
 
     <build>

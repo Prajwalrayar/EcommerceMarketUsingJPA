@@ -222,7 +222,7 @@ public class UserServiceImpl implements UserService {
     private List<AddressResponseDTO> mapAddresses(Set<Address> addresses) {
         return addresses.stream().map(a -> {
             AddressResponseDTO dto = new AddressResponseDTO();
-            dto.setId(a.getId());
+            dto.setAddressId(a.getId());
             dto.setHouseNumber(a.getHouseNumber());
             dto.setStreet(a.getStreet());
             dto.setCity(a.getCity());

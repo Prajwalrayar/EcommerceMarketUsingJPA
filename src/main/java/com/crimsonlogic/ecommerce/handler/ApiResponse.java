@@ -5,13 +5,13 @@ public class ApiResponse<T> {
     private boolean success;
     private String message;
     private T data;
-    private LocalDateTime timestamp;
+    private String timestamp; // Changed from LocalDateTime to String
 
     public ApiResponse(boolean success, String message, T data) {
         this.success = success;
         this.message = message;
         this.data = data;
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = LocalDateTime.now().toString(); // Convert to ISO String
     }
 
     public static <T> ApiResponse<T> success(String message, T data) {
@@ -26,7 +26,6 @@ public class ApiResponse<T> {
         return new ApiResponse<>(false, message, null);
     }
 
-    // Overload to support field validation errors map
     public static <T> ApiResponse<T> error(String message, T data) {
         return new ApiResponse<>(false, message, data);
     }
@@ -38,6 +37,6 @@ public class ApiResponse<T> {
     public void setMessage(String message) { this.message = message; }
     public T getData() { return data; }
     public void setData(T data) { this.data = data; }
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
+    public String getTimestamp() { return timestamp; }
+    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
 }
