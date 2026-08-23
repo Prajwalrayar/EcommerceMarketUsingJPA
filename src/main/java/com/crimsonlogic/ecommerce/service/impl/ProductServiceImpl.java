@@ -12,6 +12,7 @@ import com.crimsonlogic.ecommerce.repository.CategoryRepository;
 import com.crimsonlogic.ecommerce.repository.InventoryRepository;
 import com.crimsonlogic.ecommerce.repository.ProductRepository;
 import com.crimsonlogic.ecommerce.repository.SellerRepository;
+import com.crimsonlogic.ecommerce.service.ProductService;
 import com.crimsonlogic.ecommerce.util.IdGenerator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class ProductServiceImpl {
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;

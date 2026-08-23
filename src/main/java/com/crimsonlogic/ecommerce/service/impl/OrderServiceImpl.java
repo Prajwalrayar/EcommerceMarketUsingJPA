@@ -9,6 +9,7 @@ import com.crimsonlogic.ecommerce.enumeration.PaymentStatus;
 import com.crimsonlogic.ecommerce.enumeration.ProductStatus;
 import com.crimsonlogic.ecommerce.exception.ValidationException;
 import com.crimsonlogic.ecommerce.repository.*;
+import com.crimsonlogic.ecommerce.service.OrderService;
 import com.crimsonlogic.ecommerce.util.IdGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class OrderServiceImpl {
+public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;

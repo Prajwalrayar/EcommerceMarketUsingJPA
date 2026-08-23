@@ -7,6 +7,7 @@ import com.crimsonlogic.ecommerce.enumeration.PaymentMethod;
 import com.crimsonlogic.ecommerce.enumeration.PaymentStatus;
 import com.crimsonlogic.ecommerce.exception.ValidationException;
 import com.crimsonlogic.ecommerce.repository.*;
+import com.crimsonlogic.ecommerce.service.CheckoutService;
 import com.crimsonlogic.ecommerce.util.IdGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class CheckoutServiceImpl {
+public class CheckoutServiceImpl implements CheckoutService {
 
     private final CartRepository cartRepository;
     private final OrderRepository orderRepository;

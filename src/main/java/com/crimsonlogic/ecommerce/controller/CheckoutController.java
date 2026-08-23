@@ -2,6 +2,7 @@ package com.crimsonlogic.ecommerce.controller;
 
 import com.crimsonlogic.ecommerce.dto.order.CheckoutRequestDTO;
 import com.crimsonlogic.ecommerce.handler.ApiResponse;
+import com.crimsonlogic.ecommerce.service.CheckoutService;
 import com.crimsonlogic.ecommerce.service.impl.CheckoutServiceImpl;
 
 import javax.validation.Valid;
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/customer/checkout")
 public class CheckoutController {
 
-    private final CheckoutServiceImpl checkoutService;
+    private final CheckoutService checkoutService;
 
-    public CheckoutController(CheckoutServiceImpl checkoutService) {
+    public CheckoutController(CheckoutService checkoutService) {
         this.checkoutService = checkoutService;
     }
 

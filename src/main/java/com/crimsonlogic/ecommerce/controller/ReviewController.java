@@ -3,6 +3,7 @@ package com.crimsonlogic.ecommerce.controller;
 import com.crimsonlogic.ecommerce.dto.review.ReviewRequestDTO;
 import com.crimsonlogic.ecommerce.dto.review.ReviewResponseDTO;
 import com.crimsonlogic.ecommerce.handler.ApiResponse;
+import com.crimsonlogic.ecommerce.service.ReviewService;
 import com.crimsonlogic.ecommerce.service.impl.ReviewServiceImpl;
 
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,9 @@ import java.util.List;
 @RequestMapping("/api/v1/reviews")
 public class ReviewController {
 
-    private final ReviewServiceImpl reviewService;
+    private final ReviewService reviewService;
 
-    public ReviewController(ReviewServiceImpl reviewService) {
+    public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
     }
 

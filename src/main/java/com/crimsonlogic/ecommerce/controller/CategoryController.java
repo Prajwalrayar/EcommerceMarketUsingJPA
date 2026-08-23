@@ -2,6 +2,7 @@ package com.crimsonlogic.ecommerce.controller;
 
 import com.crimsonlogic.ecommerce.dto.product.CategoryRequestDTO;
 import com.crimsonlogic.ecommerce.handler.ApiResponse;
+import com.crimsonlogic.ecommerce.service.CategoryService;
 import com.crimsonlogic.ecommerce.service.impl.CategoryServiceImpl;
 
 import javax.validation.Valid;
@@ -14,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/admin/categories")
 public class CategoryController {
 
-    private final CategoryServiceImpl categoryService;
+    private final CategoryService categoryService;
 
-    public CategoryController(CategoryServiceImpl categoryService) {
+    public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 

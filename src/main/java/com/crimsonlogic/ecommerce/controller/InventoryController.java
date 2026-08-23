@@ -3,6 +3,7 @@ package com.crimsonlogic.ecommerce.controller;
 import com.crimsonlogic.ecommerce.dto.inventory.InventoryResponseDTO;
 import com.crimsonlogic.ecommerce.dto.inventory.InventoryUpdateRequestDTO;
 import com.crimsonlogic.ecommerce.handler.ApiResponse;
+import com.crimsonlogic.ecommerce.service.InventoryService;
 import com.crimsonlogic.ecommerce.service.impl.InventoryServiceImpl;
 
 import javax.validation.Valid;
@@ -17,9 +18,9 @@ import java.util.List;
 @RequestMapping("/api/v1/inventory")
 public class InventoryController {
 
-    private final InventoryServiceImpl inventoryService;
+    private final InventoryService inventoryService;
 
-    public InventoryController(InventoryServiceImpl inventoryService) {
+    public InventoryController(InventoryService inventoryService) {
         this.inventoryService = inventoryService;
     }
 

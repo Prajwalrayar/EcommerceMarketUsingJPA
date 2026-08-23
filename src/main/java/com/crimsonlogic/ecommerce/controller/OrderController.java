@@ -3,6 +3,7 @@ package com.crimsonlogic.ecommerce.controller;
 import com.crimsonlogic.ecommerce.dto.order.CheckoutRequestDTO;
 import com.crimsonlogic.ecommerce.dto.order.OrderResponseDTO;
 import com.crimsonlogic.ecommerce.handler.ApiResponse;
+import com.crimsonlogic.ecommerce.service.OrderService;
 import com.crimsonlogic.ecommerce.service.impl.OrderServiceImpl;
 
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,9 @@ import java.util.List;
 @RequestMapping("/api/v1/orders")
 public class OrderController {
 
-    private final OrderServiceImpl orderService;
+    private final OrderService orderService;
 
-    public OrderController(OrderServiceImpl orderService) {
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
 

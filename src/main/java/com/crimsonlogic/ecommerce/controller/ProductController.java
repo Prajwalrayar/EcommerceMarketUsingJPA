@@ -3,6 +3,7 @@ package com.crimsonlogic.ecommerce.controller;
 import com.crimsonlogic.ecommerce.dto.product.ProductRequestDTO;
 import com.crimsonlogic.ecommerce.dto.product.ProductResponseDTO;
 import com.crimsonlogic.ecommerce.handler.ApiResponse;
+import com.crimsonlogic.ecommerce.service.ProductService;
 import com.crimsonlogic.ecommerce.service.impl.ProductServiceImpl;
 
 import javax.validation.Valid;
@@ -18,9 +19,9 @@ import java.util.List;
 @RequestMapping("/api/v1/products")
 public class ProductController {
 
-    private final ProductServiceImpl productService;
+    private final ProductService productService;
 
-    public ProductController(ProductServiceImpl productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 

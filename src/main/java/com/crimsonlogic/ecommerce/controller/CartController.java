@@ -3,6 +3,7 @@ package com.crimsonlogic.ecommerce.controller;
 import com.crimsonlogic.ecommerce.dto.cart.CartRequestDTO;
 import com.crimsonlogic.ecommerce.dto.cart.CartResponseDTO;
 import com.crimsonlogic.ecommerce.handler.ApiResponse;
+import com.crimsonlogic.ecommerce.service.CartService;
 import com.crimsonlogic.ecommerce.service.impl.CartServiceImpl;
 
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,9 @@ import java.util.List;
 @RequestMapping("/api/v1/customer/cart")
 public class CartController {
 
-    private final CartServiceImpl cartService;
+    private final CartService cartService;
 
-    public CartController(CartServiceImpl cartService) {
+    public CartController(CartService cartService) {
         this.cartService = cartService;
     }
 

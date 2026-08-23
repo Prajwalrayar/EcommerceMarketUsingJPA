@@ -8,6 +8,7 @@ import com.crimsonlogic.ecommerce.repository.CustomerRepository;
 import com.crimsonlogic.ecommerce.repository.OrderRepository;
 import com.crimsonlogic.ecommerce.repository.ProductRepository;
 import com.crimsonlogic.ecommerce.repository.SellerRepository;
+import com.crimsonlogic.ecommerce.service.AdminService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class AdminServiceImpl {
+public class AdminServiceImpl implements AdminService {
 
     private final CustomerRepository customerRepository;
     private final SellerRepository sellerRepository;

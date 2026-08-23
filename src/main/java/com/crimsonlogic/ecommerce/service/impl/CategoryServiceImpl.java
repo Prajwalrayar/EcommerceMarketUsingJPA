@@ -4,13 +4,14 @@ import com.crimsonlogic.ecommerce.dto.product.CategoryRequestDTO;
 import com.crimsonlogic.ecommerce.entity.Category;
 import com.crimsonlogic.ecommerce.exception.ValidationException;
 import com.crimsonlogic.ecommerce.repository.CategoryRepository;
+import com.crimsonlogic.ecommerce.service.CategoryService;
 import com.crimsonlogic.ecommerce.util.IdGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CategoryServiceImpl {
+public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
