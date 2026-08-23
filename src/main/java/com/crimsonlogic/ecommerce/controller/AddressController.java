@@ -3,7 +3,7 @@ package com.crimsonlogic.ecommerce.controller;
 import com.crimsonlogic.ecommerce.dto.address.AddressRequestDTO;
 import com.crimsonlogic.ecommerce.dto.address.AddressResponseDTO;
 import com.crimsonlogic.ecommerce.handler.ApiResponse;
-import com.crimsonlogic.ecommerce.service.impl.AddressServiceImpl;
+import com.crimsonlogic.ecommerce.service.AddressService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +14,9 @@ import java.util.List;
 @RequestMapping("/api/v1/addresses")
 public class AddressController {
 
-    private final AddressServiceImpl addressService;
+    private final AddressService addressService;
 
-    public AddressController(AddressServiceImpl addressService) {
+    public AddressController(AddressService addressService) {
         this.addressService = addressService;
     }
 

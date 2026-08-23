@@ -11,6 +11,7 @@ import com.crimsonlogic.ecommerce.repository.CartRepository;
 import com.crimsonlogic.ecommerce.repository.CustomerRepository;
 import com.crimsonlogic.ecommerce.repository.InventoryRepository;
 import com.crimsonlogic.ecommerce.repository.ProductRepository;
+import com.crimsonlogic.ecommerce.service.CartService;
 import com.crimsonlogic.ecommerce.util.IdGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class CartServiceImpl {
+public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;

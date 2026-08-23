@@ -9,6 +9,7 @@ import com.crimsonlogic.ecommerce.exception.ValidationException;
 import com.crimsonlogic.ecommerce.repository.AddressRepository;
 import com.crimsonlogic.ecommerce.repository.CustomerRepository;
 import com.crimsonlogic.ecommerce.repository.SellerRepository;
+import com.crimsonlogic.ecommerce.service.AddressService;
 import com.crimsonlogic.ecommerce.util.IdGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class AddressServiceImpl {
+public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
     private final CustomerRepository customerRepository;

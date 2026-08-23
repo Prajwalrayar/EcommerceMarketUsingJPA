@@ -11,6 +11,7 @@ import com.crimsonlogic.ecommerce.repository.CustomerRepository;
 import com.crimsonlogic.ecommerce.repository.OrderRepository;
 import com.crimsonlogic.ecommerce.repository.ProductRepository;
 import com.crimsonlogic.ecommerce.repository.ReviewRepository;
+import com.crimsonlogic.ecommerce.service.ReviewService;
 import com.crimsonlogic.ecommerce.util.IdGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class ReviewServiceImpl {
+public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final ProductRepository productRepository;

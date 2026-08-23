@@ -8,6 +8,7 @@ import com.crimsonlogic.ecommerce.enumeration.ProductStatus;
 import com.crimsonlogic.ecommerce.exception.ValidationException;
 import com.crimsonlogic.ecommerce.repository.InventoryRepository;
 import com.crimsonlogic.ecommerce.repository.ProductRepository;
+import com.crimsonlogic.ecommerce.service.InventoryService;
 import com.crimsonlogic.ecommerce.util.IdGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class InventoryServiceImpl {
+public class InventoryServiceImpl implements InventoryService {
 
     private final InventoryRepository inventoryRepository;
     private final ProductRepository productRepository;

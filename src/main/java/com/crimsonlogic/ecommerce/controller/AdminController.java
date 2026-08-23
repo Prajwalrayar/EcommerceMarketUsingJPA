@@ -2,7 +2,7 @@ package com.crimsonlogic.ecommerce.controller;
 
 import com.crimsonlogic.ecommerce.dto.admin.AdminDashboardStatsDTO;
 import com.crimsonlogic.ecommerce.handler.ApiResponse;
-import com.crimsonlogic.ecommerce.service.impl.AdminServiceImpl;
+import com.crimsonlogic.ecommerce.service.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/admin")
 public class AdminController {
 
-    private final AdminServiceImpl adminService;
+    private final AdminService adminService;
 
-    public AdminController(AdminServiceImpl adminService) {
+    public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
 
