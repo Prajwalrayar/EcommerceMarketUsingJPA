@@ -27,7 +27,15 @@ public class CartController {
     @PostMapping("/add")
     public ResponseEntity<ApiResponse<String>> addToCart(
             @RequestAttribute("userId") String customerId,
+            @RequestAttribute("role") String role,
             @Valid @RequestBody CartRequestDTO request) {
+
+        if (!"CUSTOMER".equals(role)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(ApiResponse.error(
+                            "Only customers can add products to cart."
+                    ));
+        }
 
         String response = cartService.addToCart(request, customerId);
 
