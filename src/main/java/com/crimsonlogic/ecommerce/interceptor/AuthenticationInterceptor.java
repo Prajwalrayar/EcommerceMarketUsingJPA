@@ -59,7 +59,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
          *
          * /api/admin/** can only be accessed by ADMIN.
          */
-        if (uri.startsWith(contextPath + "/api/admin")
+        if (uri.startsWith(contextPath + "/api/v1/admin")
                 && !"ADMIN".equalsIgnoreCase(role)) {
 
             response.sendError(
@@ -75,7 +75,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
          *
          * /api/seller/** can only be accessed by SELLER.
          */
-        if (uri.startsWith(contextPath + "/api/seller")
+        if (uri.startsWith(contextPath + "/api/v1/seller")
                 && !"SELLER".equalsIgnoreCase(role)) {
 
             response.sendError(
@@ -91,7 +91,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
          *
          * /api/customer/** can only be accessed by CUSTOMER.
          */
-        if (uri.startsWith(contextPath + "/api/customer")
+        if (uri.startsWith(contextPath + "/api/v1/customer")
                 && !"CUSTOMER".equalsIgnoreCase(role)) {
 
             response.sendError(

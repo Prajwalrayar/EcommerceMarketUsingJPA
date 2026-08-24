@@ -4,23 +4,562 @@
 <head>
     <title>Register - Crimson E-Commerce</title>
     <style>
-        body { font-family: Arial, sans-serif; display: flex; justify-content: center; padding-top: 30px; background-color: #f4f6f8; }
-        .register-box { background: white; border: 1px solid #ccc; padding: 30px; border-radius: 8px; width: 380px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 12px; }
-        .form-group input { width: 100%; padding: 9px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        .form-group input.invalid { border-color: red; background-color: #fff8f8; }
-        .form-group input.valid { border-color: green; background-color: #f8fff8; }
-        .field-error { font-size: 0.75em; color: red; margin-top: 3px; display: none; }
-        .message { margin-bottom: 15px; font-weight: bold; text-align: center; }
-        .error { color: red; }
-        .success { color: green; }
-        button { background-color: #1976d2; color: white; border: none; padding: 12px; width: 100%; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 1em; }
-        button:disabled { background-color: #cccccc; cursor: not-allowed; }
-        button:hover:not(:disabled) { background-color: #115293; }
-        .back-link { display: block; text-align: center; margin-bottom: 15px; text-decoration: none; color: #666; }
-        .back-link:hover { color: #333; text-decoration: underline; }
-        .section-title { font-size: 0.95em; font-weight: bold; color: #444; margin: 15px 0 8px 0; border-bottom: 1px solid #eee; padding-bottom: 4px; }
-    </style>
+    /* =========================================================
+       GLOBAL RESET
+       ========================================================= */
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+    }
+
+    body {
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 40px 20px;
+
+        background:
+            radial-gradient(
+                circle at 10% 10%,
+                rgba(37, 99, 235, 0.08),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 90% 90%,
+                rgba(14, 165, 233, 0.08),
+                transparent 30%
+            ),
+            linear-gradient(
+                135deg,
+                #f8fafc 0%,
+                #eef2f7 100%
+            );
+
+        color: #0f172a;
+    }
+
+
+    /* =========================================================
+       REGISTRATION CARD
+       ========================================================= */
+
+    .register-box {
+        width: 100%;
+        max-width: 500px;
+
+        background: rgba(255, 255, 255, 0.97);
+
+        border: 1px solid #dbe2ea;
+
+        border-radius: 18px;
+
+        padding: 38px 42px 34px;
+
+        box-shadow:
+            0 20px 45px rgba(15, 23, 42, 0.10),
+            0 5px 15px rgba(15, 23, 42, 0.05);
+
+        position: relative;
+
+        overflow: hidden;
+
+        animation: registerCardAppear 0.45s ease-out;
+    }
+
+
+    /* Professional top accent */
+
+    .register-box::before {
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 4px;
+
+        background: linear-gradient(
+            90deg,
+            #2563eb,
+            #3b82f6,
+            #0ea5e9
+        );
+    }
+
+
+    /* =========================================================
+       BACK LINK
+       ========================================================= */
+
+    .back-link {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: fit-content;
+
+        margin: 0 auto 24px;
+
+        color: #64748b;
+
+        font-size: 15px;
+
+        font-weight: 500;
+
+        text-decoration: none;
+
+        transition:
+            color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    .back-link:hover {
+        color: #2563eb;
+
+        text-decoration: none;
+
+        transform: translateX(-2px);
+    }
+
+
+    /* =========================================================
+       TITLE
+       ========================================================= */
+
+    #form-title {
+        text-align: center;
+
+        margin: 0 0 26px;
+
+        color: #0f172a;
+
+        font-size: 30px;
+
+        font-weight: 700;
+
+        line-height: 1.25;
+
+        letter-spacing: -0.4px;
+    }
+
+
+    /* =========================================================
+       MESSAGE
+       ========================================================= */
+
+    .message {
+        min-height: 22px;
+
+        margin: 0 0 18px;
+
+        text-align: center;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        line-height: 1.5;
+    }
+
+    .error {
+        color: #dc2626;
+    }
+
+    .success {
+        color: #16a34a;
+    }
+
+
+    /* =========================================================
+       FORM GROUP
+       ========================================================= */
+
+    .form-group {
+        margin-bottom: 17px;
+    }
+
+
+    /* =========================================================
+       INPUTS
+       ========================================================= */
+
+    .form-group input {
+        display: block;
+
+        width: 100%;
+
+        height: 52px;
+
+        padding: 0 16px;
+
+        border: 1px solid #cbd5e1;
+
+        border-radius: 10px;
+
+        background: #ffffff;
+
+        color: #0f172a;
+
+        font-family: inherit;
+
+        font-size: 15px;
+
+        outline: none;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+    }
+
+
+    /* Placeholder */
+
+    .form-group input::placeholder {
+        color: #94a3b8;
+
+        opacity: 1;
+    }
+
+
+    /* Hover */
+
+    .form-group input:hover {
+        border-color: #94a3b8;
+    }
+
+
+    /* Focus */
+
+    .form-group input:focus {
+        border-color: #2563eb;
+
+        background: #ffffff;
+
+        box-shadow:
+            0 0 0 3px rgba(37, 99, 235, 0.11);
+    }
+
+
+    /* =========================================================
+       INVALID INPUT
+       ========================================================= */
+
+    .form-group input.invalid {
+        border-color: #ef4444;
+
+        background: #fffafa;
+
+        box-shadow:
+            0 0 0 3px rgba(239, 68, 68, 0.07);
+    }
+
+    .form-group input.invalid:focus {
+        border-color: #dc2626;
+
+        box-shadow:
+            0 0 0 3px rgba(239, 68, 68, 0.11);
+    }
+
+
+    /* =========================================================
+       VALID INPUT
+       ========================================================= */
+
+    .form-group input.valid {
+        border-color: #22c55e;
+
+        background: #fafffb;
+
+        box-shadow:
+            0 0 0 3px rgba(34, 197, 94, 0.06);
+    }
+
+    .form-group input.valid:focus {
+        border-color: #16a34a;
+
+        box-shadow:
+            0 0 0 3px rgba(34, 197, 94, 0.10);
+    }
+
+
+    /* =========================================================
+       FIELD VALIDATION MESSAGE
+       ========================================================= */
+
+    .field-error {
+        font-size: 12px;
+
+        line-height: 1.5;
+
+        color: #dc2626;
+
+        margin-top: 6px;
+
+        padding-left: 3px;
+
+        display: none;
+    }
+
+
+    /* =========================================================
+       SECTION TITLE
+       ========================================================= */
+
+    .section-title {
+        margin: 25px 0 14px;
+
+        padding-bottom: 9px;
+
+        border-bottom: 1px solid #e2e8f0;
+
+        color: #334155;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        letter-spacing: 0.2px;
+
+        text-transform: uppercase;
+    }
+
+
+    /* =========================================================
+       REGISTER BUTTON
+       ========================================================= */
+
+    button {
+        width: 100%;
+
+        height: 53px;
+
+        margin-top: 8px;
+
+        padding: 0 20px;
+
+        border: none;
+
+        border-radius: 10px;
+
+        background: linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+        color: #ffffff;
+
+        font-family: inherit;
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+        letter-spacing: 0.2px;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 8px 18px rgba(37, 99, 235, 0.20);
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+    }
+
+
+    /* Hover only when enabled */
+
+    button:hover:not(:disabled) {
+        background: linear-gradient(
+            135deg,
+            #1d4ed8,
+            #1e40af
+        );
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 12px 24px rgba(37, 99, 235, 0.25);
+    }
+
+
+    /* Click */
+
+    button:active:not(:disabled) {
+        transform: translateY(0);
+
+        box-shadow:
+            0 6px 14px rgba(37, 99, 235, 0.18);
+    }
+
+
+    /* =========================================================
+       DISABLED BUTTON
+       ========================================================= */
+
+    button:disabled {
+        background: #cbd5e1;
+
+        color: #f8fafc;
+
+        cursor: not-allowed;
+
+        box-shadow: none;
+
+        transform: none;
+    }
+
+
+    /* =========================================================
+       LOGIN LINK SECTION
+       ========================================================= */
+
+    .register-box > p {
+        text-align: center;
+
+        margin: 24px 0 0;
+
+        color: #64748b;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+    #login-link {
+        color: #2563eb;
+
+        font-weight: 600;
+
+        text-decoration: none;
+
+        margin-left: 4px;
+
+        transition: color 0.2s ease;
+    }
+
+    #login-link:hover {
+        color: #1d4ed8;
+
+        text-decoration: underline;
+    }
+
+
+    /* =========================================================
+       ANIMATION
+       ========================================================= */
+
+    @keyframes registerCardAppear {
+
+        from {
+            opacity: 0;
+
+            transform: translateY(14px);
+        }
+
+        to {
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+    }
+
+
+    /* =========================================================
+       RESPONSIVE - TABLET
+       ========================================================= */
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 25px 15px;
+
+            align-items: center;
+        }
+
+        .register-box {
+            max-width: 100%;
+
+            padding: 34px 25px 30px;
+
+            border-radius: 15px;
+        }
+
+        #form-title {
+            font-size: 27px;
+
+            margin-bottom: 24px;
+        }
+
+        .back-link {
+            margin-bottom: 22px;
+        }
+
+        .form-group input {
+            height: 51px;
+
+            font-size: 15px;
+        }
+
+        button {
+            height: 51px;
+        }
+    }
+
+
+    /* =========================================================
+       RESPONSIVE - SMALL MOBILE
+       ========================================================= */
+
+    @media (max-width: 380px) {
+
+        body {
+            padding: 15px 10px;
+        }
+
+        .register-box {
+            padding: 30px 18px 26px;
+        }
+
+        #form-title {
+            font-size: 24px;
+        }
+
+        .form-group input {
+            height: 49px;
+
+            font-size: 14px;
+        }
+
+        .section-title {
+            font-size: 13px;
+        }
+
+        button {
+            height: 50px;
+
+            font-size: 15px;
+        }
+    }
+</style>
 </head>
 <body>
 

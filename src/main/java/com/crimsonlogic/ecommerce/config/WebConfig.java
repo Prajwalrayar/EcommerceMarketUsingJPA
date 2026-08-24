@@ -28,27 +28,26 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(authenticationInterceptor)
                 // Secure sensitive endpoints:
                 .addPathPatterns(
-                        "/api/customer/**",
-                        "/api/admin/**",
-                        "/api/inventory/**",
-                        "/api/orders/**",
-                        "/api/addresses/**",
-                        "/api/wishlist/**",
-                        "/api/reviews/add",
-                        "/api/reviews/seller/**",
-                        "/api/categories/add",
-                        "/api/products" // Secures POST/PUT (Adding/Editing products)
+                        "/api/v1/customer/**",
+                        "/api/v1/admin/**",
+                        "/api/v1/inventory/**",
+                        "/api/v1/orders/**",
+                        "/api/v1/addresses/**",
+                        "/api/v1/reviews/add",
+                        "/api/v1/reviews/seller/**",
+                        "/api/v1/categories/add",
+                        "/api/v1/products" // Secures POST/PUT (Adding/Editing products)
                 )
 
                 // Public endpoints open to everyone (Browsing, Searching, Reviews):
                 .excludePathPatterns(
-                        "/api/auth/**",
-                        "/api/categories/all",
-                        "/api/products/paged",
-                        "/api/products/filter",
-                        "/api/products/search",
-                        "/api/products/category/**",
-                        "/api/reviews/product/**"
+                        "/api/v1/auth/**",
+                        "/api/v1/categories/all",
+                        "/api/v1/products/paged",
+                        "/api/v1/products/filter",
+                        "/api/v1/products/search",
+                        "/api/v1/products/category/**",
+                        "/api/v1/reviews/product/**"
                 );
     }
 

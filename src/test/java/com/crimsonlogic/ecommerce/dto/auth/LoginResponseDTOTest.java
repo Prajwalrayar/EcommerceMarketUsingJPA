@@ -1,16 +1,13 @@
 package com.crimsonlogic.ecommerce.dto.auth;
 
-public class LoginResponseDTO {
+public class LoginResponseDTOTest {
     private String id;
     private String name;
     private String email;
     private String phone;
     private String role;
 
-    public LoginResponseDTO(){
-    }
-
-    public LoginResponseDTO(String id, String name, String email, String phone, String role) {
+    public LoginResponseDTOTest(String id, String name, String email, String phone, String role) {
         this.id = id;
         this.name = name;
         this.email = email;
