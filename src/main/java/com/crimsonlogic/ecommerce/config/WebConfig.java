@@ -36,7 +36,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/api/v1/reviews/add",
                         "/api/v1/reviews/seller/**",
                         "/api/v1/categories/add",
-                        "/api/v1/products" // Secures POST/PUT (Adding/Editing products)
+                        "/api/v1/products" ,
+                        "/api/v1/products/**"
                 )
 
                 // Public endpoints open to everyone (Browsing, Searching, Reviews):

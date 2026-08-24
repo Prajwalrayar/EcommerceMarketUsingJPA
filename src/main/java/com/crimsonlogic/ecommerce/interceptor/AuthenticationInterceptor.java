@@ -1,5 +1,8 @@
 package com.crimsonlogic.ecommerce.interceptor;
 
+import com.crimsonlogic.ecommerce.handler.ApiResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,6 +12,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
+
+    /*
+     * ObjectMapper is created directly.
+     * No Spring bean/dependency is required.
+     */
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public boolean preHandle(
@@ -40,12 +49,11 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 || session.getAttribute("userId") == null
                 || session.getAttribute("role") == null) {
 
-            response.sendError(
+            return writeErrorResponse(
+                    response,
                     HttpServletResponse.SC_UNAUTHORIZED,
-                    "Unauthorized access. Please login."
+                    "Please log in to continue."
             );
-
-            return false;
         }
 
         /*
@@ -56,69 +64,79 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
         /*
          * ADMIN authorization
-         *
-         * /api/admin/** can only be accessed by ADMIN.
          */
         if (uri.startsWith(contextPath + "/api/v1/admin")
                 && !"ADMIN".equalsIgnoreCase(role)) {
 
-            response.sendError(
+            return writeErrorResponse(
+                    response,
                     HttpServletResponse.SC_FORBIDDEN,
-                    "Admin role required."
+                    "You don't have permission to access this page."
             );
-
-            return false;
         }
 
         /*
          * SELLER authorization
-         *
-         * /api/seller/** can only be accessed by SELLER.
          */
         if (uri.startsWith(contextPath + "/api/v1/seller")
                 && !"SELLER".equalsIgnoreCase(role)) {
 
-            response.sendError(
+            return writeErrorResponse(
+                    response,
                     HttpServletResponse.SC_FORBIDDEN,
-                    "Seller role required."
+                    "You don't have permission to access this page."
             );
-
-            return false;
         }
 
         /*
          * CUSTOMER authorization
-         *
-         * /api/customer/** can only be accessed by CUSTOMER.
          */
         if (uri.startsWith(contextPath + "/api/v1/customer")
                 && !"CUSTOMER".equalsIgnoreCase(role)) {
 
-            response.sendError(
+            return writeErrorResponse(
+                    response,
                     HttpServletResponse.SC_FORBIDDEN,
-                    "Customer role required."
+                    "You don't have permission to access this page."
             );
-
-            return false;
         }
 
         /*
          * Expose authenticated user information
          * to controllers through request attributes.
-         *
-         * This allows controllers to use:
-         *
-         * @RequestAttribute("userId")
-         *
-         * @RequestAttribute("role")
          */
         request.setAttribute("userId", userId);
         request.setAttribute("role", role);
 
         /*
          * Authentication and authorization successful.
-         * Continue to the controller.
          */
         return true;
+    }
+
+    /*
+     * ==========================================================
+     * USER-FRIENDLY JSON ERROR RESPONSE
+     * ==========================================================
+     */
+    private boolean writeErrorResponse(
+            HttpServletResponse response,
+            int status,
+            String message) throws Exception {
+
+        ApiResponse<Object> errorResponse =
+                ApiResponse.error(message);
+
+        response.setStatus(status);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        response.getWriter().write(
+                objectMapper.writeValueAsString(errorResponse)
+        );
+
+        response.getWriter().flush();
+
+        return false;
     }
 }

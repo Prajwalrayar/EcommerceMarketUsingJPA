@@ -4,7 +4,11 @@ import com.crimsonlogic.ecommerce.enumeration.ProductStatus;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "products")
+@Table(name = "products",
+        uniqueConstraints = {@UniqueConstraint(name = "uk_product_name_brand",
+                columnNames = {"product_name", "brand"})
+        }
+)
 public class Product {
 
     @Id

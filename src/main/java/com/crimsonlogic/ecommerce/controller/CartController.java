@@ -71,9 +71,9 @@ public class CartController {
     }
 
     // 3. Remove from Cart
-    @DeleteMapping("/remove/{cartId}")
-    public ResponseEntity<ApiResponse<String>> removeFromCart(
-            @PathVariable String cartId,
+    @DeleteMapping("/remove/{productName}")
+    public ResponseEntity<ApiResponse<String>> removeOneFromCart(
+            @PathVariable String productName,
             @RequestAttribute("userId") String userId,
             @RequestAttribute("role") String role) {
 
@@ -84,7 +84,8 @@ public class CartController {
                     ));
         }
 
-        String response = cartService.removeFromCart(cartId, userId);
+        String response =
+                cartService.removeFromCart(productName, userId);
 
         return ResponseEntity.ok(
                 ApiResponse.success(

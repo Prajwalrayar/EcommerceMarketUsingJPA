@@ -2,6 +2,7 @@ package com.crimsonlogic.ecommerce.controller;
 
 import com.crimsonlogic.ecommerce.dto.product.ProductRequestDTO;
 import com.crimsonlogic.ecommerce.dto.product.ProductResponseDTO;
+import com.crimsonlogic.ecommerce.dto.product.ProductUpdateRequestDTO;
 import com.crimsonlogic.ecommerce.handler.ApiResponse;
 import com.crimsonlogic.ecommerce.service.ProductService;
 import com.crimsonlogic.ecommerce.service.impl.ProductServiceImpl;
@@ -46,7 +47,7 @@ public class ProductController {
     @PutMapping("/{productId}")
     public ResponseEntity<ApiResponse<ProductResponseDTO>> updateProduct(
             @PathVariable String productId,
-            @Valid @RequestBody ProductRequestDTO request,
+            @Valid @RequestBody ProductUpdateRequestDTO request,
             @RequestAttribute("userId") String userId,
             @RequestAttribute("role") String role) {
 

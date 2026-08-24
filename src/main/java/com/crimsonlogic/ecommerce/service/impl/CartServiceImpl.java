@@ -77,16 +77,44 @@ public class CartServiceImpl implements CartService {
     }
 
     // Restored Remove from Cart method
-    public String removeFromCart(String cartId, String customerId) {
-        Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new ValidationException("Cart item not found."));
+    public String removeFromCart(String productName, String customerId) {
 
-        if (!cart.getCustomer().getId().equals(customerId)) {
-            throw new ValidationException("You can only remove items from your own cart.");
+        Product product = productRepository
+                .findByName(productName.trim())
+                .orElseThrow(() ->
+                        new ValidationException(
+                                "Product '" + productName + "' not found."
+                        )
+                );
+
+        Cart cart = cartRepository
+                .findByCustomerIdAndProductId(
+                        customerId,
+                        product.getId()
+                )
+                .orElseThrow(() ->
+                        new ValidationException(
+                                "Cart item not found."
+                        )
+                );
+
+        // Remove only ONE quantity
+        if (cart.getQuantity() > 1) {
+
+            cart.setQuantity(cart.getQuantity() - 1);
+
+            cartRepository.save(cart);
+
+            return "One quantity of '" +
+                    productName +
+                    "' removed from cart.";
         }
 
+        // If quantity is already 1, remove the cart item
         cartRepository.delete(cart);
-        return "Item removed from cart.";
+
+        return "'" + productName +
+                "' removed from cart.";
     }
 
     // Restored DTO Mapper

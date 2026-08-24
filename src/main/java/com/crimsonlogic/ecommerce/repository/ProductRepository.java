@@ -13,6 +13,11 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, String> {
     Optional<Product> findByName(String name);
     List<Product> findBySellerId(String sellerId);
+
+    boolean existsByNameIgnoreCaseAndBrandIgnoreCase(
+            String name,
+            String brand
+    );
     List<Product> findByCategoryId(String categoryId);
     List<Product> findByCreatedBy(String createdBy);
     Optional<Product> findByIdAndSellerId(String productId, String sellerId);
