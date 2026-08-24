@@ -2,6 +2,7 @@ package com.crimsonlogic.ecommerce.service;
 
 import com.crimsonlogic.ecommerce.dto.product.ProductRequestDTO;
 import com.crimsonlogic.ecommerce.dto.product.ProductResponseDTO;
+import com.crimsonlogic.ecommerce.dto.product.ProductUpdateRequestDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -16,10 +17,11 @@ public interface ProductService {
 
     ProductResponseDTO updateProduct(
             String productId,
-            ProductRequestDTO request,
+            ProductUpdateRequestDTO request,
             String userId,
             String role
     );
+
 
     List<ProductResponseDTO> getAllProducts();
 

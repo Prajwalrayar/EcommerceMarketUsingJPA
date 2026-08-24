@@ -1,9 +1,10 @@
 package com.crimsonlogic.ecommerce.config;
 
-import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 import javax.servlet.Filter;
+
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class ApplicationInitializer
         extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -64,5 +65,21 @@ public class ApplicationInitializer
         return new Filter[]{
                 encodingFilter
         };
+    }
+    
+ // ==========================================================
+    // ENABLE 404 EXCEPTION HANDLING
+    // ==========================================================
+
+    @Override
+    protected DispatcherServlet createDispatcherServlet(
+            org.springframework.web.context.WebApplicationContext servletAppContext) {
+
+        DispatcherServlet dispatcherServlet =
+                new DispatcherServlet(servletAppContext);
+
+        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
+
+        return dispatcherServlet;
     }
 }

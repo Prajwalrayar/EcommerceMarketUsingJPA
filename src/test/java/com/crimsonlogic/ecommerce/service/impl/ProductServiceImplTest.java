@@ -2,6 +2,7 @@ package com.crimsonlogic.ecommerce.service.impl;
 
 import com.crimsonlogic.ecommerce.dto.product.ProductRequestDTO;
 import com.crimsonlogic.ecommerce.dto.product.ProductResponseDTO;
+import com.crimsonlogic.ecommerce.dto.product.ProductUpdateRequestDTO;
 import com.crimsonlogic.ecommerce.entity.Category;
 import com.crimsonlogic.ecommerce.entity.Inventory;
 import com.crimsonlogic.ecommerce.entity.Product;
@@ -303,7 +304,7 @@ class ProductServiceImplTest {
     @Test
     void shouldUpdateOwnProductSuccessfullyForSeller() {
 
-        ProductRequestDTO request = new ProductRequestDTO();
+        ProductUpdateRequestDTO request = new ProductUpdateRequestDTO();
 
         request.setName("Updated Laptop");
         request.setBrand("HP");
@@ -360,7 +361,7 @@ class ProductServiceImplTest {
     @Test
     void shouldUpdateAdminProductSuccessfullyForAdmin() {
 
-        ProductRequestDTO request = new ProductRequestDTO();
+        ProductUpdateRequestDTO request = new ProductUpdateRequestDTO();
 
         request.setName("Updated Keyboard");
         request.setBrand("HP");
@@ -417,7 +418,7 @@ class ProductServiceImplTest {
 
         sellerProduct.setSeller(anotherSeller);
 
-        ProductRequestDTO request = new ProductRequestDTO();
+        ProductUpdateRequestDTO request = new ProductUpdateRequestDTO();
 
         request.setName("Updated Laptop");
         request.setBrand("HP");
@@ -457,7 +458,7 @@ class ProductServiceImplTest {
     @Test
     void shouldRejectAdminUpdatingSellerProduct() {
 
-        ProductRequestDTO request = new ProductRequestDTO();
+        ProductUpdateRequestDTO request = new ProductUpdateRequestDTO();
 
         request.setName("Updated Laptop");
         request.setBrand("HP");
@@ -497,7 +498,7 @@ class ProductServiceImplTest {
     @Test
     void shouldThrowExceptionWhenProductNotFoundWhileUpdating() {
 
-        ProductRequestDTO request = new ProductRequestDTO();
+        ProductUpdateRequestDTO request = new ProductUpdateRequestDTO();
 
         when(productRepository.findById("PRO999"))
                 .thenReturn(Optional.empty());
@@ -527,7 +528,7 @@ class ProductServiceImplTest {
     @Test
     void shouldThrowExceptionWhenCategoryNotFoundWhileUpdating() {
 
-        ProductRequestDTO request = new ProductRequestDTO();
+        ProductUpdateRequestDTO request = new ProductUpdateRequestDTO();
 
         request.setName("Updated Laptop");
         request.setBrand("HP");

@@ -2,6 +2,7 @@ package com.crimsonlogic.ecommerce.controller;
 
 import com.crimsonlogic.ecommerce.dto.product.ProductRequestDTO;
 import com.crimsonlogic.ecommerce.dto.product.ProductResponseDTO;
+import com.crimsonlogic.ecommerce.dto.product.ProductUpdateRequestDTO;
 import com.crimsonlogic.ecommerce.service.ProductService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -115,7 +116,7 @@ class ProductControllerTest {
 
         when(productService.updateProduct(
                 eq("PROD001"),
-                any(ProductRequestDTO.class),
+                any(ProductUpdateRequestDTO.class),
                 eq("SEL001"),
                 eq("SELLER")
         )).thenReturn(response);
@@ -143,7 +144,7 @@ class ProductControllerTest {
         verify(productService)
                 .updateProduct(
                         eq("PROD001"),
-                        any(ProductRequestDTO.class),
+                        any(ProductUpdateRequestDTO.class),
                         eq("SEL001"),
                         eq("SELLER")
                 );
